@@ -17,13 +17,23 @@ import androidx.core.app.NotificationManagerCompat
 
 class MainActivity : AppCompatActivity() {
 
-    val ChannelName="Notification channe no 1"
+    val ChannelName="Notification channel no 1"
     val ChannelId="ID1"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         createNotificationChannel()
+
+     var button :Button
+     button=findViewById(R.id.button)
+        button.setOnClickListener{
+            sendNotification()
+        }
+    }
+
+    fun sendNotification(){
+
 
         //make pop up responsible
         val intent= Intent(this,MainActivity::class.java)
@@ -33,17 +43,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         val notification = NotificationCompat.Builder(this,ChannelId).setContentTitle("Sample notification title").setContentTitle("This is notificaion context!")
-            .setSmallIcon(R.drawable.ic_baseline_notifications_active_24).setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setContentIntent(pendingIntent).build()
+                .setSmallIcon(R.drawable.ic_baseline_notifications_active_24).setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(pendingIntent).build()
+
+
 
 
         val notificationManager=NotificationManagerCompat.from(this)
+        notificationManager.notify(0,notification)
 
-     var button :Button
-     button=findViewById(R.id.button)
-        button.setOnClickListener{
-            notificationManager.notify(0,notification)
-        }
+
+
+
+
     }
     fun createNotificationChannel()
     {
